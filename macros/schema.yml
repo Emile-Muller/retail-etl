@@ -1,0 +1,45 @@
+version: 2
+
+macros:
+  - name: test_length_equals
+    description: Custom dbt test checking that string values in a column have the specified length.
+    arguments:
+      - name: model
+        type: model
+        description: Table or model to test.
+      - name: column_name
+        type: column
+        description: Column to check.
+      - name: value
+        type: integer
+        description: Specified length.
+      
+  - name: test_price_positive
+    description: Checks whether all values in a numeric column are positive.
+    arguments:
+      - name: model
+        type: model
+        description: Table or model to test.
+      - name: column_name
+        type: column
+        description: Column to check.
+      
+  - name: test_quantity_nonzero
+    description: Custom dbt test checking that values in a numeric column are non-zero.
+    arguments:
+      - name: model
+        type: model
+        description: Table or model to test.
+      - name: column_name
+        type: column
+        description: Column to check.
+      
+  - name: test_two_decimals
+    description: Custom dbt test checking that numeric values are rounded to two decimal places.
+    arguments:
+      - name: model
+        type: model
+        description: Table or model to test.
+      - name: column_name
+        type: column
+        description: Column to check.

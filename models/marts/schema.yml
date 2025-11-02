@@ -1,0 +1,131 @@
+version: 2
+
+models:
+  - name: transaction_date
+    description: "Transaction date lookup table."
+    columns:
+      - name: transaction_id
+        description: "Unique transaction identifier."
+        tests:
+          - not_null
+          - unique
+      - name: transaction_ts
+        description: "Datetime of the transaction, represented as a 20-character string (YYYY-MM-DDTHH:MM:SSZ)."
+        tests:
+          - not_null
+      - name: transaction_date
+        description: "Date of the transaction, represented as an ISO-8601 date string in YYYY-MM-DD format."
+        tests:
+          - not_null
+      - name: year
+        description: "Year of the transaction, represented as a four-digit string (YYYY)."
+        tests:
+          - not_null
+      - name: month
+        description: "Month of the transaction, represented as a two-digit string (01-12) with left-padding applied."
+        tests:
+          - not_null
+      - name: month_name
+        description: "Name of the month of the transaction, represented as a string (January, February, March, ...)."
+        tests:
+          - not_null
+      - name: day
+        description: "Day of the month of the transaction, represented as a two-digit string (01-31) with left-padding applied."
+        tests:
+          - not_null
+      - name: day_of_week
+        description: "Day of the week of the transaction, represented as a one-digit integer (0-6), where 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, and 6 = Saturday."
+        tests:
+          - not_null
+      - name: day_name
+        description: "Name of the day of the transaction, represented as a 3-character string (Sun, Mon, Tue, ...)."
+        tests:
+          - not_null
+      - name: is_weekend
+        description: "Boolean flag indicating whether the transaction occurred on a weekend (TRUE if Saturday or Sunday, otherwise FALSE)."
+        tests:
+          - not_null
+      - name: quarter
+        description: "Quarter of the year of the transaction, represented as a one-digit integer (1-4), where 1 = Q1 and 4 = Q4."
+        tests:
+          - not_null
+      - name: week_of_year
+        description: "Week number of the year of the transaction, represented as a integer (1-53) based on the ISO week date standard."
+        tests:
+          - not_null
+      - name: hour
+        description: "Hour of the transaction, represented as a two-digit string (00-23) with left-padding applied."
+        tests:
+          - not_null
+      - name: minute
+        description: "Minute of the transaction, represented as a two-digit string (00-59) with left-padding applied."
+        tests:
+          - not_null
+        
+  - name: customer
+    description: "Customer dimension table."
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier."
+        tests:
+          - not_null
+          - unique
+          - length_equals:
+              arguments:
+                value: 5
+      - name: country
+        description: "Customer's country."
+        
+  - name: product
+    description: "Product dimension table."
+    columns:
+      - name: product_id
+        description: "Unique product identifier."
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: "Product's name."
+        
+  - name: sales
+    description: "Fact table containing sales transactions."
+    columns:
+      - name: transaction_id
+        description: "Foreign key referencing transaction date."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                  to: ref('transaction_date')
+                  field: transaction_id
+      - name: product_id
+        description: "Foreign key referencing product."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                  to: ref('product')
+                  field: product_id
+      - name: customer_id
+        description: "Foreign key referencing customer, can be null."
+        tests:
+          - relationships:
+              arguments:
+                  to: ref('customer')
+                  field: customer_id
+      - name: quantity
+        description: "Number of items sold. Can be negative to indicate a refund or cancellation."
+        tests:
+          - not_null
+          - quantity_nonzero
+      - name: unit_price
+        description: "Unit price of a product."
+        tests:
+          - not_null
+          - two_decimals
+          - price_positive
+      - name: total_sale
+        description: "Total sale amount for a product in a transaction, calculated as unit_price * quantity."
+        tests:
+          - not_null
+          - two_decimals

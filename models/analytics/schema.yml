@@ -1,0 +1,201 @@
+version: 2
+
+models:
+  - name: customer_country
+    description: "Aggregated metrics by customer country."
+    columns:
+      - name: country
+        description: "Country of the customer."
+        tests:
+          - not_null
+          - unique
+      - name: customers
+        description: "Number of distinct customers from this country."
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total sales amount from all transactions from customers from this country."
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Total number of transactions from customers from this country."
+        tests:
+          - not_null
+      - name: avg_order_value
+        description: "Average order value per transaction from customers from this country (calculated as total_sales / transaction_count)."
+        tests:
+          - not_null
+          
+  - name: customer_ltv_distribution
+    description: "Customer distribution by lifetime value (LTV) buckets."
+    columns:
+      - name: ltv_bucket
+        description: "LTV bucket label (e.g., '£0-100', '£100–500', '£500–1000', '£1000+')."
+        tests:
+          - not_null
+          - unique
+      - name: sort_order
+        description: "Numeric value used to sort the LTV buckets in ascending order."
+        tests:
+          - not_null
+      - name: num_customers
+        description: "Number of customers in each LTV bucket."
+        tests:
+          - not_null
+      - name: pct_customers
+        description: "Percentage of total customers in each LTV bucket (calculated as num_customers / total_customers)."
+        tests:
+          - not_null
+
+  - name: customer_order_distribution
+    description: "Customer distribution by number of orders (order count buckets)."
+    columns:
+      - name: order_bucket
+        description: "Order count bucket label (e.g., '1 order', '2-3 orders', '4-5 orders', '6+ orders')."
+        tests:
+          - not_null
+          - unique
+      - name: num_customers
+        description: "Number of customers in each order count bucket."
+        tests:
+          - not_null
+      - name: pct_customers
+        description: "Percentage of total customers in each order count bucket (calculated as num_customers / total_customers)."
+        tests:
+          - not_null
+          
+  - name: monthly_sales
+    description: "Aggregated monthly sales and customer metrics."
+    columns:
+      - name: year_month
+        description: "Year and month of the aggregation, formatted as 'YYYY-MM'."
+        tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year of the aggregation (YYYY)."
+        tests:
+          - not_null
+      - name: month
+        description: "Month of the aggregation (MM)."
+        tests:
+          - not_null
+      - name: active_customers_3m
+        description: "Number of customers who made a purchase in the last 3 months."
+        tests:
+          - not_null
+      - name: repeat_customers_3m
+        description: "Number of customers who made repeat purchases in the last 3 months."
+        tests:
+          - not_null
+      - name: customer_repeat_rate
+        description: "Percentage of active customers in the last 3 months who made repeat purchases (repeat_customers_3m / active_customers_3m)."
+        tests:
+          - not_null
+      - name: active_customers_1m
+        description: "Number of customers who made a purchase in the month."
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total sales amount for the month."
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Total number of transactions in the month."
+        tests:
+          - not_null
+      - name: avg_order_value
+        description: "Average order value for the month (calculated as total_sales / transaction_count)."
+        tests:
+          - not_null
+          
+  - name: product_price_tiers
+    description: "Aggregated sales metrics grouped by product price tiers."
+    columns:
+      - name: price_tier
+        description: "Price tier label for products (e.g., 'Very Low (<£1)', 'Low (£1–£2)', 'Mid-Low (£2–£5)', ...)."
+        tests:
+          - not_null
+          - unique
+      - name: total_sales
+        description: "Total sales amount for products in this price tier."
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Total number of transactions for products in this price tier."
+        tests:
+          - not_null
+          
+  - name: top_100_customers
+    description: "Top 100 customers based on customer lifetime value (CLV)."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer."
+        tests:
+          - not_null
+          - unique
+      - name: country
+        description: "Country of the customer."
+        tests:
+          - not_null
+      - name: clv
+        description: "Customer lifetime value, calculated as total sales per customer."
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Total number of transactions made by the customer."
+        tests:
+          - not_null
+      - name: avg_order_value
+        description: "Average order value for the customer (calculated as total sales / transaction_count)."
+        tests:
+          - not_null
+      - name: first_purchase
+        description: "Date of the customer's first purchase."
+        tests:
+          - not_null
+      - name: last_purchase
+        description: "Date of the customer's most recent purchase."
+        tests:
+          - not_null
+      - name: customer_rank
+        description: "Rank of the customer based on CLV (1 = highest CLV)."
+        tests:
+          - not_null
+          
+  - name: top_100_products
+    description: "Top 100 products based on total sales."
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: "Name of the product."
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total sales amount for the product."
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Total number of transactions that included the product."
+        tests:
+          - not_null
+      - name: avg_unit_price
+        description: "Average unit price of the product across all transactions."
+        tests:
+          - not_null
+      - name: avg_quantity
+        description: "Average quantity of the product per transaction."
+        tests:
+          - not_null
+      - name: avg_order_value
+        description: "Average order value for transactions containing this product (calculated as total_sales / transaction_count)."
+        tests:
+          - not_null
+      - name: product_rank
+        description: "Rank of the product based on total sales (1 = highest sales)."
+        tests:
+          - not_null

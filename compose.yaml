@@ -1,0 +1,16 @@
+services:
+  etl:
+    build: .
+    container_name: cloud_etl
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - ./dbt_profiles:/root/.dbt
+    command: >
+      bash -c "
+      python etl_load.py &&
+      dbt run
+      "
