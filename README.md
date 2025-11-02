@@ -8,7 +8,7 @@ It ingests raw CSV data, transforms it into a clean star schema using dbt, store
 
 ## Overview and Dashboard
 
-- Overview of this project: [click here](https://emile-muller.alwaysdata.net/retail-etl/).
+- Overview of this project: [click here](https://emile-muller.alwaysdata.net/retail-etl/)
 - Public dashboard: [click here](https://lookerstudio.google.com/s/ruu1v0Jwo7w)
 
 ---
@@ -92,34 +92,50 @@ SNOWFLAKE_ROLE=<your_role>
 
 ### Start the pipeline
 
+```
 docker-compose up
+```
 
 ### Build and run
 
+```
 docker-compose up --build
+```
 
 ### Stop the process
 
+```
 docker-compose down
+```
 
 ## Run a specific command within the container
 
 ### Run dbt models
 
+```
 docker-compose run --rm etl dbt run
+```
 
 ### Debug dbt connection
 
+```
 docker-compose run --rm etl dbt debug
+```
 
 ### Run dbt tests
 
+```
 docker-compose run --rm etl dbt test
+```
 
 ## Open DBT documentation
 
+```
 docker-compose run --rm etl dbt docs generate
+```
 
+```
 docker-compose run --rm -p 8080:8080 etl dbt docs serve --host 0.0.0.0
+```
 
 Then open http://localhost:8080 on a browser
