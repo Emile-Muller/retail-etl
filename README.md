@@ -22,11 +22,11 @@ It ingests raw CSV data, transforms it into a clean star schema using dbt, store
 
 ### Download the CSV
 
-Download the raw CSV dataset [here](https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci) and add it to the `/data/` folder.
+Download the raw CSV dataset [here](https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci), make sure to name it `online_retail_II.csv`, and add it to the `data` folder.
 
 ### Environment Variables
 
-At the root of the project, create a `.env` file with your Snowflake connection details:
+At the root of the project, rename the file `.env.example` to `.env`, and add your Snowflake connection details:
 
 ```env
 SNOWFLAKE_ACCOUNT=<your_account>

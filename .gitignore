@@ -6,4 +6,4 @@ __pycache__/
 docker-compose.override.yml
 .env
 *.user.yml
-*.csv
+online_retail_II.csv
