@@ -1,5 +1,14 @@
 # Online Retail ETL & Analytics Pipeline
 
+![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2496ED?style=flat&logo=docker&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat&logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/Python-306998?style=flat&logo=python&logoColor=FFD43B)
+![dbt](https://img.shields.io/badge/dbt-FF694B?style=flat&logo=dbt&logoColor=white)
+![Snowflake](https://img.shields.io/badge/Snowflake-29B5E8?style=flat&logo=snowflake&logoColor=white)
+![Looker Studio](https://img.shields.io/badge/Looker%20Studio-4285F4?style=flat&logo=looker&logoColor=white)
+
+![Architecture diagram](docs/data_pipeline.png)
+
 This repository contains a complete ETL/ELT pipeline for the Online Retail dataset (2009–2011).
 
 It ingests raw CSV data, transforms it into a clean star schema using dbt, stores it in Snowflake, and generates aggregated tables for analytics. The pipeline is fully containerized with Docker, making it easy to run locally or in a cloud environment.
@@ -59,6 +68,9 @@ SNOWFLAKE_ROLE=<your_role>
 +---dbt_profiles
 |       .user.yml
 |       profiles.yml
+|
++---docs
+|       data_pipeline.png
 |
 +---macros
 |       length_equals.sql
