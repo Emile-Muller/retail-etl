@@ -5,7 +5,7 @@
 [![dbt](https://img.shields.io/badge/dbt-FF694B?style=flat&logo=dbt&logoColor=white)](https://www.getdbt.com/)
 [![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Snowflake](https://img.shields.io/badge/Snowflake-29B5E8?style=flat&logo=snowflake&logoColor=white)](https://www.snowflake.com)
-[![Looker Studio](https://img.shields.io/badge/Looker%20Studio-4285F4?style=flat&logo=looker&logoColor=white)](https://datastudio.google.com)
+[![Data Studio](https://img.shields.io/badge/Data%20Studio-4285F4?style=flat&logo=looker&logoColor=white)](https://datastudio.google.com)
 
 ![Architecture diagram](docs/data_pipeline.png)
 
@@ -18,7 +18,7 @@ It ingests raw CSV data, transforms it into a clean star schema using dbt, store
 ## Overview and Dashboard
 
 - Overview of this project: [click here](https://emile-muller.alwaysdata.net/retail-etl/)
-- Public dashboard: [click here](https://lookerstudio.google.com/s/ruu1v0Jwo7w)
+- Public dashboard: [click here](https://datastudio.google.com/reporting/02f556b4-6966-43c0-acbc-80bc9d1dc8c2)
 
 ---
 
